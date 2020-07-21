@@ -14,13 +14,28 @@ class CapacitacionReporte(models.TransientModel):
         required=True)
 
     def generar_reporte(self):
+        # workorder_ids = self.env['maintenance.cp.workorder'].search([('create_date', '>=', self.start_date),
+        #                                                              ('create_date', '<=', self.end_date),
+        #                                                              ('company_id', '=', self.env.user.company_id.id)])
+        # workorders = []
+        #
+        # # raise exceptions.UserError((result))
+        #
+        # for wo in workorder_ids:
+        #     workorders.append(
+        #         {
+        #             'name': wo.name,
+        #             'star': wo.start_date,
+        #             'end': wo.end_date
+        #         }
+        #     )
 
         query = """
         select wo.name as name, wo.start_date as start, wo.end_date as end, us.login as create_uid
         from maintenance_cp_workorder as wo join res_users as us on (wo.create_uid=us.id)
         where wo.create_date >= %s and wo.create_date <= %s and wo.company_id = %s;
         """
-        
+
         params = (self.start_date, self.end_date, self.env.user.company_id.id)
 
         self.env.cr.execute(query, params)
