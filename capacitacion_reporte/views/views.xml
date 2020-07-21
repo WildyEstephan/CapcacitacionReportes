@@ -1,0 +1,46 @@
+<odoo>
+  <data>
+
+    <record id="capacitacion_reporte_view_form" model="ir.ui.view">
+        <field name="name">capacitacion_reporte_view_form</field>
+        <field name="model">capacitacion.reporte</field>
+        <field name="arch" type="xml">
+            <form string="Reporte">
+                <sheet>
+                    <group>
+                        <group>
+                          <field name="start_date" string="Start"/>
+                        </group>
+                        <group>
+                          <field name="end_date" string="End"/>
+                        </group>
+                    </group>
+
+                  <footer>
+                    <button name="generar_reporte" type="object" string="Generar Reporte" class="oe_highlight"/>
+                    <button name="cancel" string="Cancelar" special="cancel"/>
+                  </footer>
+
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="capcacitacion_reporte_action" model="ir.actions.act_window">
+        <field name="name">Reporte de Work Order</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">capacitacion.reporte</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="capcacitacion_reporte_categ" name="Reporte de Work Order"
+              parent="maintenance_cp.reporting_categ"
+              action="capcacitacion_reporte_action"
+              sequence="15"/>
+
+
+  </data>
+</odoo>
